@@ -9,10 +9,9 @@ I mainly had the idea of dividing each component of the rule into separate class
 # Optimization
 My first thought when solving this problem was to organize the rules into a trie-like data structure with the "alphabet": 
 {directions, protocols, digits} where directions = {"inbound", "outbound"}, protocols = {"tcp, "udp"}, and digits are in the range [0,9] inclusive. 
-Retrieval of the port and IP Address would be done by digit-by-digit. However, I hadn't thought of a way to implement this efficiently in the given time and instead opted for creating a dictionary that mapped direction and protocol combinations to port and IP address combinations. Since the values in the dictionary were sets, checking if a rule exists can be done in constant time, at the cost of linearly increasing memory. However, the actual speed of the algorithm would depend on the hashing function in use.
+Retrieval of the port and IP Address would be done by digit-by-digit. However, I hadn't thought of a way to implement this efficiently in the given time and instead opted for creating a dictionary that mapped direction and protocol combinations to port and IP address combinations. The result of this was a solution taking linear time for validation, and linear space for initialization.
 
-In retrospect, to implement the more efficient trie-like data structure, I would have converted each value to to have the same number of digits (i.e. port = 8080 -> 08080, ip_address = 0.0.0.0 -> 000000000000) so that a distinction could be made when going on to the next numerical value (i.e. from port to ip_address). Values for direction and protocol could be encoded with 0 or 1. This would greatly reduce the space complexity for initialization, at the cost of accept_package having logarithmic time. Overall, this implementation would likely be far more optimal than the solution I've provided in this challenge.
-
+In retrospect, to implement the more efficient trie-like data structure, I would have converted each value to to have the same number of digits (i.e. port = 8080 -> 08080, ip_address = 0.0.0.0 -> 000000000000) so that a distinction could be made when going on to the next numerical value (i.e. from port to ip_address). Values for direction and protocol could be encoded with 0 or 1. This would increase the space complexity for initialization but reduce the runtime of accept_package to a logarithmic function. 
 
 # Team Preference
 I would like to work in the data team at Illumio.
